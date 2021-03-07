@@ -21,3 +21,18 @@ export const isLoginUser = () => async (dispatch) => {
     console.log(e);
   }
 };
+
+export const login = () => async (dispatch) => {
+  try {
+    const { authResponse } = await new Promise(window.FB.login);
+    console.log(authResponse);
+    if (!authResponse) {
+      dispatch(changeAuthStatus(false));
+      return;
+    }
+
+    dispatch(changeAuthStatus(true));
+  } catch (e) {
+    console.log(e);
+  }
+};

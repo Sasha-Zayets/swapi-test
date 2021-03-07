@@ -5,22 +5,26 @@ import {
   FormTitle,
   WrapperLoginButton,
 } from './styles';
+import { useDispatch } from 'react-redux';
+import { login } from '../../actions/UserActions';
 
-export const Login = () => (
-  <Auth>
-    <FormWrapper>
-      <FormTitle>Log in</FormTitle>
-      <WrapperLoginButton>
-        <div
-          className="fb-login-button"
-          data-width=""
-          data-size="large"
-          data-button-type="login_with"
-          data-layout="default"
-          data-auto-logout-link="false"
-          data-use-continue-as="false"
-        />
-      </WrapperLoginButton>
-    </FormWrapper>
-  </Auth>
-);
+export const Login = () => {
+  const dispatch = useDispatch();
+
+  const checkLoginState = () => {
+    dispatch(login());
+  };
+
+  return (
+    <Auth>
+      <FormWrapper>
+        <FormTitle>Log in</FormTitle>
+        <WrapperLoginButton>
+          <div className="fb-login-button">
+            <button onClick={checkLoginState}>login in facebook</button>
+          </div>
+        </WrapperLoginButton>
+      </FormWrapper>
+    </Auth>
+  );
+};
