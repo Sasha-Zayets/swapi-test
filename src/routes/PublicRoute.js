@@ -6,7 +6,7 @@ export const PublicRoute = (props) => {
   const { isLogin } = useSelector((state) => state.user);
 
   if (isLogin) {
-    return <Redirect to="/list" />;
+    return <Redirect to="/people-list" />;
   }
 
   return <Route {...props} />;

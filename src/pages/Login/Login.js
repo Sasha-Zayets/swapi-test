@@ -6,7 +6,7 @@ import {
   WrapperLoginButton,
 } from './styles';
 import { useDispatch } from 'react-redux';
-import { login } from '../../actions/UserActions';
+import { login } from '../../actions/userActions';
 
 export const Login = () => {
   const dispatch = useDispatch();
