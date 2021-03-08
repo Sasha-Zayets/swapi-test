@@ -4,7 +4,9 @@ import {
   SET_SEARCH_PEOPLE_LIST,
   SET_DATA_LOADING,
   SET_SELECT_PEOPLE,
+  SET_SELECT_LIST_PEOPLE,
 } from '../reducer/people';
+import { getFromStorage, addToStorage } from '../helpers/storage';
 
 export const setListPeople = (payload) => ({
   type: SET_PEOPLE_LIST,
@@ -18,6 +20,11 @@ export const setSearchListPeople = (payload) => ({
 
 export const setSelectPeople = (payload) => ({
   type: SET_SELECT_PEOPLE,
+  payload,
+});
+
+export const setLikedList = (payload) => ({
+  type: SET_SELECT_LIST_PEOPLE,
   payload,
 });
 
@@ -74,12 +81,72 @@ export const getFullInfoPeople = (id) => async (dispatch) => {
       vehiclesData.push(response);
     }
 
+    let isLiked = false;
+    const likedList = getFromStorage('liked');
+    if (likedList) {
+      const find = likedList.findIndex((el) => el.name === data.name);
+
+      isLiked = find > -1;
+    }
+
     dispatch(setSelectPeople({
       ...data,
       filmsTitles,
       homeWorld,
       vehiclesData,
+      isLiked,
     }));
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const getLikedList = () => (dispatch) => {
+  try {
+    const likedList = getFromStorage('liked');
+
+    if (likedList) {
+      dispatch(setLikedList(likedList));
+      return;
+    }
+
+    dispatch(setLikedList([]));
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const addLikePeople = (data) => (dispatch) => {
+  try {
+     const likedList = getFromStorage('liked');
+     if (likedList) {
+        const findElement = likedList.findIndex((el) => el.name === data.name);
+
+        if (findElement > -1) {
+          const filterList = likedList.filter((el) => el.name !== data.name);
+
+          addToStorage('liked', filterList);
+          dispatch(setSelectPeople({
+            ...data,
+            isLiked: false,
+          }));
+          return;
+        }
+
+        const newLikedList = [...likedList, data];
+        addToStorage('liked', newLikedList);
+        dispatch(setSelectPeople({
+          ...data,
+          isLiked: true,
+        }));
+        return;
+     }
+
+     addToStorage('liked', [data]);
+     dispatch(setSelectPeople({
+       ...data,
+       isLiked: true,
+     }));
   } catch (e) {
     console.log(e);
   }

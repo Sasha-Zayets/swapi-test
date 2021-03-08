@@ -1,12 +1,14 @@
 export const SET_PEOPLE_LIST = 'SET_PEOPLE_LIST';
 export const SET_SEARCH_PEOPLE_LIST = 'SET_SEARCH_PEOPLE_LIST';
 export const SET_SELECT_PEOPLE = 'SET_SELECT_PEOPLE';
+export const SET_SELECT_LIST_PEOPLE = 'SET_SELECT_LIST_PEOPLE';
 export const SET_DATA_LOADING = 'SET_DATA_LOADING';
 
 const initialState = {
   peopleList: [],
   searchListPeople: [],
   selectPeople: {},
+  likedList: [],
   loading: false,
 };
 
@@ -26,6 +28,11 @@ const peopleReducer = (state = initialState, action) => {
       return {
         ...state,
         selectPeople: action.payload,
+      };
+    case SET_SELECT_LIST_PEOPLE:
+      return {
+        ...state,
+        likedList: action.payload,
       };
     case SET_DATA_LOADING:
       return {

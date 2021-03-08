@@ -3,12 +3,15 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Chip from '@material-ui/core/Chip';
+import IconButton from '@material-ui/core/IconButton';
+import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
+import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import { createStyles, makeStyles } from '@material-ui/core';
 import { Label } from './styles';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { getFullInfoPeople, setSelectPeople } from '../../actions/peopleActions';
+import { getFullInfoPeople, setSelectPeople, addLikePeople } from '../../actions/peopleActions';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -36,6 +39,10 @@ export const People = () => {
       dispatch(setSelectPeople({}));
     };
   }, [dispatch, id]);
+
+  const likePeople = () => {
+    dispatch(addLikePeople(selectPeople));
+  };
 
   return (
     <Grid container spacing={4}>
@@ -75,6 +82,14 @@ export const People = () => {
               </Typography>
             ))
           }
+        </Box>
+        <Box>
+          <IconButton onClick={likePeople}>
+            <ThumbUpAltIcon color={selectPeople.isLiked ? 'primary' : 'action'} />
+          </IconButton>
+          <IconButton>
+            <ThumbDownIcon />
+          </IconButton>
         </Box>
       </Grid>
       <Grid item xl={6} md={6}>
