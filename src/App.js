@@ -7,8 +7,7 @@ const App = ({ isAuth }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // dispatch(changeAuthStatus(isAuth));
-    dispatch(changeAuthStatus(true));
+    dispatch(changeAuthStatus(isAuth));
   }, [isAuth, dispatch]);
 
   return <Router />;

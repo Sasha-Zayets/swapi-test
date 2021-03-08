@@ -87,9 +87,6 @@ export const People = () => {
           <IconButton onClick={likePeople}>
             <ThumbUpAltIcon color={selectPeople.isLiked ? 'primary' : 'action'} />
           </IconButton>
-          <IconButton>
-            <ThumbDownIcon />
-          </IconButton>
         </Box>
       </Grid>
       <Grid item xl={6} md={6}>
