@@ -5,7 +5,6 @@ import Box from '@material-ui/core/Box';
 import Chip from '@material-ui/core/Chip';
 import IconButton from '@material-ui/core/IconButton';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
-import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import { createStyles, makeStyles } from '@material-ui/core';
 import { Label } from './styles';
 
